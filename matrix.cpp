@@ -21,15 +21,81 @@ void print(int A[][N], int n, int m) {
     }
 }
 
-bool mEqual(int A[][N], int n1, int m1, int B[][N], int n2, int m2) {
-    return true;
+bool mEqual(int A[][N], int n1, int m1, int B[][N], int n2, int m2)
+{
+	if((n1 != n2) || (m1 != m2))
+	{
+		return false;
+	}
+	
+    for(int i = 0; i < n1; ++i)
+	{
+		for(int j = 0; j < m1; ++j)
+		{
+			if(A[i][j] != B[i][j])
+			{
+				return false;
+			}
+		}
+	}
+	
+	return true;
 }
 
-void sum(int A[][N], int B[][N], int C[][N], int n, int m) {}
-void transpose(int A[][N], int B[][N], int n, int m) {}
-void sMult(int A[][N], int R[][N], int n, int m, int s) {}
-void sub(int A[][N], int B[][N], int C[][N], int n, int m) {}
-void matrixMult(int A[][N], int B[][N], int C[][N], int r1, int c1, int r2, int c2) {}
+void sum(int A[][N], int B[][N], int C[][N], int n, int m)
+{
+	for(int i = 0; i < n; ++i)
+	{
+		for(int j = 0; j < m; ++j)
+		{
+			C[i][j] = A[i][j] + B[i][j];
+		}
+	}
+}
+void transpose(int A[][N], int B[][N], int n, int m)
+{
+	for(int i = 0; i < n; ++i)
+	{
+		for(int j = 0; j < m; ++j)
+		{
+			B[j][i] = A[i][j];
+		}
+	}
+}
+void sMult(int A[][N], int B[][N], int n, int m, int s)
+{
+	for(int i = 0; i < n; ++i)
+	{
+		for(int j = 0; j < m; ++j)
+		{
+			B[i][j] = A[i][j] * s;
+		}
+	}
+}
+void sub(int A[][N], int B[][N], int C[][N], int n, int m)
+{
+	sMult(B, C, n, m, -1);
+	sum(A, C, C, n, m);
+}
+void matrixMult(int A[][N], int B[][N], int C[][N], int r1, int c1, int r2, int c2)
+{
+	if(c1 != r2)
+	{
+		return;
+	}
+	
+	for(int i = 0; i < r1; ++i)
+	{
+		for(int j = 0; j < c2; ++j)
+		{
+			C[i][j] = 0;
+			for(int x = 0; x < c1; ++x)
+			{
+				C[i][j] += A[i][x] * B[x][j];
+			}
+		}
+	}
+}
 
 int main() {
     int n1, m1, n2, m2;
